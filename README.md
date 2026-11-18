@@ -32,10 +32,25 @@ $ echo $?
 
 It reads systemd, the Tailscale mesh, the host firewall and the volatile
 power-restore register, then reports findings with a remedy for each. It never
-changes system state. Written test-first; 46 tests.
+changes system state. Written test-first; 46 tests, CI green on Python 3.10-3.14.
 
 Checks: `sshd.exposed`, `sshd.unrestricted`, `tailscale.backend`,
 `power.restore_disabled`, `power.register_unreadable`, `power.unit_disabled`.
+
+## Contributions upstream
+
+### [wheelgap #517](https://github.com/wheelgap/wheelgap/pull/517) — fix(deps): do not wait on in-flight prefetch lookups after Ctrl-C
+
+`fill_all` used a `ThreadPoolExecutor`, whose workers are not daemons, so after
+Ctrl-C the interpreter waited at exit for every fetch still in flight — up to
+16 of them, each able to stall for minutes on a bad network. Replaced with a
+small daemon-thread pool. Full suite: 4740 passed, 3 skipped; ruff and mypy clean.
+
+### [google/magika #1634](https://github.com/google/magika/pull/1634) — docs: state the Python version requirements in the README
+
+The README documented how to install Magika but never which Python versions it
+supports. Added a Requirements section, with every claim sourced to a line in
+the repo (`python/pyproject.toml:9`, the CI matrices at lines 232 and 414).
 
 ## How I work
 
