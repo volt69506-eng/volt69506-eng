@@ -52,6 +52,13 @@ The README documented how to install Magika but never which Python versions it
 supports. Added a Requirements section, with every claim sourced to a line in
 the repo (`python/pyproject.toml:9`, the CI matrices at lines 232 and 414).
 
+### [vendrabuck/HERD #1461](https://github.com/vendrabuck/HERD/pull/1461) — docs: correct the VRF module claim in TESTING.md and NOS_LAB.md
+
+`TESTING.md` claimed GitHub runners lack the `vrf` kernel module so the VRF
+tests are skipped by decision. Both workflows actually `modprobe` the modules
+before booting the lab, and the tests pass on the runner. Corrected both docs;
+the spec drift guard passes (137 tests).
+
 ## How I work
 
 - **Tests first.** Every behaviour lands as a failing test before the
