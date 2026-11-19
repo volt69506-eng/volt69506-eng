@@ -32,32 +32,15 @@ $ echo $?
 
 It reads systemd, the Tailscale mesh, the host firewall and the volatile
 power-restore register, then reports findings with a remedy for each. It never
-changes system state. Written test-first; 46 tests, CI green on Python 3.10-3.14.
+changes system state. Written test-first; 47 tests, CI green on Python 3.10-3.14.
 
 Checks: `sshd.exposed`, `sshd.unrestricted`, `tailscale.backend`,
-`power.restore_disabled`, `power.register_unreadable`, `power.unit_disabled`.
+`power.restore_disabled`, `power.register_missing`,
+`power.register_unreadable`, `power.unit_disabled`.
 
-## Contributions upstream
-
-### [wheelgap #517](https://github.com/wheelgap/wheelgap/pull/517) — fix(deps): do not wait on in-flight prefetch lookups after Ctrl-C
-
-`fill_all` used a `ThreadPoolExecutor`, whose workers are not daemons, so after
-Ctrl-C the interpreter waited at exit for every fetch still in flight — up to
-16 of them, each able to stall for minutes on a bad network. Replaced with a
-small daemon-thread pool. Full suite: 4740 passed, 3 skipped; ruff and mypy clean.
-
-### [google/magika #1634](https://github.com/google/magika/pull/1634) — docs: state the Python version requirements in the README
-
-The README documented how to install Magika but never which Python versions it
-supports. Added a Requirements section, with every claim sourced to a line in
-the repo (`python/pyproject.toml:9`, the CI matrices at lines 232 and 414).
-
-### [vendrabuck/HERD #1461](https://github.com/vendrabuck/HERD/pull/1461) — docs: correct the VRF module claim in TESTING.md and NOS_LAB.md
-
-`TESTING.md` claimed GitHub runners lack the `vrf` kernel module so the VRF
-tests are skipped by decision. Both workflows actually `modprobe` the modules
-before booting the lab, and the tests pass on the runner. Corrected both docs;
-the spec drift guard passes (137 tests).
+The issue tracker is written for outsiders: each issue states the observed
+behaviour, the expected behaviour, the reproduction and the acceptance
+criteria, and the easy ones carry `good first issue`.
 
 ## How I work
 
@@ -68,16 +51,24 @@ the spec drift guard passes (137 tests).
   are bugs and get filed as such.
 - **Small and readable over broad and clever.** A 200-line tool you can audit
   beats a 2,000-line one you cannot.
+- **Verify before claiming.** A fix is not done when the code is written; it is
+  done when the test that failed before now passes, and the full suite is green
+  alongside it.
 
-## Contributions and issues
+## Contributions upstream
 
-Issues in my repositories are written to be worked on by someone who has never
-seen the code: each one states the observed behaviour, the expected behaviour,
-the reproduction, and the acceptance criteria. Several are labelled
-`good first issue`.
+I contribute to projects I actually use, and I prefer fixes with a failing test
+attached over commentary.
 
-If you are new to a project and the issue is unclear, say so in a comment —
-clarifying it is itself a useful contribution.
+- **[wheelgap](https://github.com/wheelgap/wheelgap)** — finding Python
+  dependencies with no prebuilt wheel for a target platform. Contributed a fix
+  for Ctrl-C waiting on in-flight index fetches
+  ([#517](https://github.com/wheelgap/wheelgap/pull/517), closed as a duplicate
+  of a concurrent fix) and the MCP server's missing mobile version floors
+  ([#522](https://github.com/wheelgap/wheelgap/issues/522)).
+- **[magika](https://github.com/google/magika)** — file type detection.
+  Documented the Python requirements in the README
+  ([#1634](https://github.com/google/magika/pull/1634)).
 
 ## Notes on this profile
 
