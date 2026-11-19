@@ -30,13 +30,18 @@ $ echo $?
 0
 ```
 
-It reads systemd, the Tailscale mesh, the host firewall and the volatile
-power-restore register, then reports findings with a remedy for each. It never
-changes system state. Written test-first; 47 tests, CI green on Python 3.10-3.14.
+It reads systemd, the Tailscale mesh, the host firewall, sshd's own
+authentication settings and the volatile power-restore register, then reports
+findings with a remedy for each. It never changes system state. Written
+test-first; 63 tests, CI green on Python 3.10-3.14.
 
-Checks: `sshd.exposed`, `sshd.unrestricted`, `tailscale.backend`,
+Checks: `sshd.exposed`, `sshd.unrestricted`, `sshd.firewall_unreadable`,
+`sshd.root_login`, `sshd.password_auth`, `tailscale.backend`,
 `power.restore_disabled`, `power.register_missing`,
 `power.register_unreadable`, `power.unit_disabled`.
+
+A check whose input could not be read says so — an unread firewall looks
+exactly like a firewall with no SSH rules, and that difference is a finding.
 
 The issue tracker is written for outsiders: each issue states the observed
 behaviour, the expected behaviour, the reproduction and the acceptance
