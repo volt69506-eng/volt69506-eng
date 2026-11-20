@@ -33,12 +33,16 @@ $ echo $?
 It reads systemd, the Tailscale mesh, the host firewall, sshd's own
 authentication settings and the volatile power-restore register, then reports
 findings with a remedy for each. It never changes system state. Written
-test-first; 63 tests, CI green on Python 3.10-3.14.
+test-first; 128 tests, CI green on Python 3.10-3.14.
 
-Checks: `sshd.exposed`, `sshd.unrestricted`, `sshd.firewall_unreadable`,
-`sshd.root_login`, `sshd.password_auth`, `tailscale.backend`,
-`power.restore_disabled`, `power.register_missing`,
-`power.register_unreadable`, `power.unit_disabled`.
+Checks, over six surfaces: the firewall, sshd's own authentication settings,
+what the node publishes with `tailscale serve`/`funnel`, the clock, pending
+package updates, and the power-restore register. Sixteen findings, each with a
+remedy, and `auditor.degraded` when a reader could not run — an unread firewall
+must not look like a firewall with no rules.
+
+It runs on a schedule too: `--output`/`--since` compare against the last report
+so a cron job alerts only when something is new or got worse.
 
 A check whose input could not be read says so — an unread firewall looks
 exactly like a firewall with no SSH rules, and that difference is a finding.
