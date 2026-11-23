@@ -33,7 +33,7 @@ $ echo $?
 It reads systemd, the Tailscale mesh, the host firewall, sshd's own
 authentication settings and the volatile power-restore register, then reports
 findings with a remedy for each. It never changes system state. Written
-test-first; 131 tests, CI green on Python 3.10-3.14.
+test-first; 179 tests, CI green on Python 3.10-3.14.
 
 Checks, over six surfaces: the firewall, sshd's own authentication settings,
 what the node publishes with `tailscale serve`/`funnel`, the clock, pending
