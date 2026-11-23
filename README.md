@@ -33,7 +33,7 @@ $ echo $?
 It reads systemd, the Tailscale mesh, the host firewall, sshd's own
 authentication settings and the volatile power-restore register, then reports
 findings with a remedy for each. It never changes system state. Written
-test-first; 128 tests, CI green on Python 3.10-3.14.
+test-first; 131 tests, CI green on Python 3.10-3.14.
 
 Checks, over six surfaces: the firewall, sshd's own authentication settings,
 what the node publishes with `tailscale serve`/`funnel`, the clock, pending
@@ -75,6 +75,23 @@ attached over commentary.
   ([#517](https://github.com/wheelgap/wheelgap/pull/517), closed as a duplicate
   of a concurrent fix) and the MCP server's missing mobile version floors
   ([#522](https://github.com/wheelgap/wheelgap/issues/522)).
+- **[HERD](https://github.com/vendrabuck/HERD)** — a network-inventory lab:
+  VLANs, cabling, reservations. Three fixes, each with the failing test first:
+  a logout whose server call fails no longer leaves an unhandled rejection
+  ([#1474](https://github.com/vendrabuck/HERD/pull/1474), merged); a bulk import
+  upload is refused at its bound before it is parsed, on inventory and cabling
+  ([#1503](https://github.com/vendrabuck/HERD/pull/1503)); and an in-flight cache
+  fetch is now shared with the callers queued behind it, so an outage costs one
+  upstream attempt instead of one per waiter
+  ([#1513](https://github.com/vendrabuck/HERD/pull/1513)).
+- **[better-oss](https://github.com/mobeloper/better-oss)** — a Claude Code
+  plugin that grades each step of an OSS contribution. Covered the installer's
+  `claude plugin install` path
+  ([#35](https://github.com/mobeloper/better-oss/pull/35), merged), pinned the
+  Python CI job to a runner that still ships 3.9
+  ([#37](https://github.com/mobeloper/better-oss/pull/37), merged), and fixed a
+  leak check that read `pkg@1.2.3` as an email and reddened every pull request
+  ([#38](https://github.com/mobeloper/better-oss/pull/38), merged).
 - **[magika](https://github.com/google/magika)** — file type detection.
   Documented the Python requirements in the README
   ([#1634](https://github.com/google/magika/pull/1634)).
