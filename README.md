@@ -33,13 +33,14 @@ $ echo $?
 It reads systemd, the Tailscale mesh, the host firewall, sshd's own
 authentication settings, the account database and the volatile power-restore
 register, then reports findings with a remedy for each. It never changes system
-state. Written test-first; 188 tests, CI green on Python 3.10–3.14.
+state. Written test-first; the test suite is the specification, and CI runs on Python 3.10–3.14.
 
-Twenty findings across the firewall, SSH, accounts, Tailscale publishing, the
+Findings cover the firewall default policy and SSH exposure, sshd
+authentication, local accounts, Tailscale publishing and backend state, the
 clock, disk use, failed units, pending and orphaned packages, kernel reboot
-state and the power register — each with a remedy, plus `auditor.degraded`
-when a reader could not run: an unread firewall must not look like a firewall
-with no rules.
+state, config drift/world-writable paths under `/etc`, and the Mac
+power-restore register — each with a remedy, plus `auditor.degraded` when a
+reader could not run.
 
 It runs on a schedule too: `--output`/`--since` compare against the last report
 so a cron job alerts only when something is new or got worse.
@@ -50,7 +51,7 @@ exactly like a firewall with no SSH rules, and that difference is a finding.
 The issue tracker is written for outsiders: each issue states the observed
 behaviour, the expected behaviour, the reproduction and the acceptance
 criteria, and carries labels that route it (`good first issue`, `help wanted`,
-`security`, `vulnerability`). Eight issues filed from one real host audit cover
+`security`, `vulnerability`). Issues filed from real host audits cover
 empty password hashes, temporary passwordless sudo grants, pacman config
 drift, a missing mkinitcpio preset, off-tailnet listeners, and two CLI bugs.
 
