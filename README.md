@@ -31,15 +31,15 @@ $ echo $?
 ```
 
 It reads systemd, the Tailscale mesh, the host firewall, sshd's own
-authentication settings and the volatile power-restore register, then reports
-findings with a remedy for each. It never changes system state. Written
-test-first; 179 tests, CI green on Python 3.10-3.14.
+authentication settings, the account database and the volatile power-restore
+register, then reports findings with a remedy for each. It never changes system
+state. Written test-first; 188 tests, CI green on Python 3.10–3.14.
 
-Checks, over six surfaces: the firewall, sshd's own authentication settings,
-what the node publishes with `tailscale serve`/`funnel`, the clock, pending
-package updates, and the power-restore register. Sixteen findings, each with a
-remedy, and `auditor.degraded` when a reader could not run — an unread firewall
-must not look like a firewall with no rules.
+Twenty findings across the firewall, SSH, accounts, Tailscale publishing, the
+clock, disk use, failed units, pending and orphaned packages, kernel reboot
+state and the power register — each with a remedy, plus `auditor.degraded`
+when a reader could not run: an unread firewall must not look like a firewall
+with no rules.
 
 It runs on a schedule too: `--output`/`--since` compare against the last report
 so a cron job alerts only when something is new or got worse.
@@ -49,7 +49,10 @@ exactly like a firewall with no SSH rules, and that difference is a finding.
 
 The issue tracker is written for outsiders: each issue states the observed
 behaviour, the expected behaviour, the reproduction and the acceptance
-criteria, and the easy ones carry `good first issue`.
+criteria, and carries labels that route it (`good first issue`, `help wanted`,
+`security`, `vulnerability`). Eight issues filed from one real host audit cover
+empty password hashes, temporary passwordless sudo grants, pacman config
+drift, a missing mkinitcpio preset, off-tailnet listeners, and two CLI bugs.
 
 ## How I work
 
@@ -76,14 +79,15 @@ attached over commentary.
   of a concurrent fix) and the MCP server's missing mobile version floors
   ([#522](https://github.com/wheelgap/wheelgap/issues/522)).
 - **[HERD](https://github.com/vendrabuck/HERD)** — a network-inventory lab:
-  VLANs, cabling, reservations. Three fixes, each with the failing test first:
+  VLANs, cabling, reservations. Four fixes, each with the failing test first:
   a logout whose server call fails no longer leaves an unhandled rejection
   ([#1474](https://github.com/vendrabuck/HERD/pull/1474), merged); a bulk import
   upload is refused at its bound before it is parsed, on inventory and cabling
   ([#1503](https://github.com/vendrabuck/HERD/pull/1503)); and an in-flight cache
   fetch is now shared with the callers queued behind it, so an outage costs one
   upstream attempt instead of one per waiter
-  ([#1513](https://github.com/vendrabuck/HERD/pull/1513)).
+  ([#1513](https://github.com/vendrabuck/HERD/pull/1513)). The last two are
+  reviewed and awaiting a final merge.
 - **[better-oss](https://github.com/mobeloper/better-oss)** — a Claude Code
   plugin that grades each step of an OSS contribution. Covered the installer's
   `claude plugin install` path
@@ -91,10 +95,19 @@ attached over commentary.
   Python CI job to a runner that still ships 3.9
   ([#37](https://github.com/mobeloper/better-oss/pull/37), merged), and fixed a
   leak check that read `pkg@1.2.3` as an email and reddened every pull request
-  ([#38](https://github.com/mobeloper/better-oss/pull/38), merged).
+  ([#38](https://github.com/mobeloper/better-oss/pull/38), merged), and covered
+  the pr-monitor's drafting path
+  ([#40](https://github.com/mobeloper/better-oss/pull/40)).
 - **[magika](https://github.com/google/magika)** — file type detection.
   Documented the Python requirements in the README
-  ([#1634](https://github.com/google/magika/pull/1634)).
+  ([#1634](https://github.com/google/magika/pull/1634)) and fixed
+  `identify_paths()` silently accepting a bare str
+  ([#1647](https://github.com/google/magika/pull/1647), closes
+  [#1472](https://github.com/google/magika/issues/1472)).
+- **[Omarchy](https://github.com/omacom/omarchy)** — the distribution this host
+  runs. Added `--yes` to `omarchy-sudo-passwordless` so an agent or script that
+  already asked can take a timed grant without a TTY, with three new shell
+  tests ([#19983](https://github.com/omacom/omarchy/pull/19983)).
 
 ## Notes on this profile
 
