@@ -132,7 +132,8 @@ attached over commentary.
   closed mine and picked another issue: a regression test for UTF-8 BOM plus
   CRLF CSV files, with the fixture agreed on the issue first
   ([#37](https://github.com/sricharanreddycheruku/ml-failure-lab/issues/37),
-  [#42](https://github.com/sricharanreddycheruku/ml-failure-lab/pull/42)).
+  [#42](https://github.com/sricharanreddycheruku/ml-failure-lab/pull/42),
+  merged).
 - **[Omarchy](https://github.com/omacom/omarchy)** — the distribution this host
   runs. Added `--yes` to `omarchy-sudo-passwordless` so an agent or script that
   already asked can take a timed grant without a TTY, with three new shell
