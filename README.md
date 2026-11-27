@@ -33,7 +33,7 @@ $ echo $?
 It reads systemd, the Tailscale mesh, the host firewall, sshd's own
 authentication settings, the account database and the volatile power-restore
 register, then reports findings with a remedy for each. It never changes system
-state. Written test-first; the test suite is the specification, and CI runs on Python 3.10–3.14 — **319 tests** as of this update.
+state. Written test-first; the test suite is the specification, and CI runs on Python 3.10–3.14 — **331 tests** as of this update.
 
 Findings cover the firewall default policy and SSH exposure, sshd
 authentication, local accounts, Tailscale publishing and backend state, the
@@ -60,11 +60,12 @@ drift, a missing mkinitcpio preset, off-tailnet listeners, and two CLI bugs.
 
 Open work invites outside contributors: a `/proc` fallback was implemented from
 an idea in a contributor PR ([#84](https://github.com/volt69506-eng/volt-watch/issues/84)),
-and current issues cover world-readable user SSH keys
-([#85](https://github.com/volt69506-eng/volt-watch/issues/85)), a `--fail-on`
-threshold for CI ([#86](https://github.com/volt69506-eng/volt-watch/issues/86))
-and duplicate UID 0 accounts
-([#87](https://github.com/volt69506-eng/volt-watch/issues/87)). A contributor's
+and world-readable user SSH keys
+([#85](https://github.com/volt69506-eng/volt-watch/issues/85)) and duplicate
+UID 0 accounts
+([#87](https://github.com/volt69506-eng/volt-watch/issues/87)) are open for
+contributors. The `--fail-on` issue was implemented with TDD and merged
+([#90](https://github.com/volt69506-eng/volt-watch/pull/90)). A contributor's
 structured degraded-evidence fix was reviewed, rebased and merged with credit
 ([#73](https://github.com/volt69506-eng/volt-watch/pull/73)); an overlapping
 listener PR was closed with a new issue carved out for its one unique idea.
@@ -123,11 +124,15 @@ attached over commentary.
   ([#1648](https://github.com/google/magika/pull/1648), closes
   [#1613](https://github.com/google/magika/issues/1613)).
 - **[ml-failure-lab](https://github.com/sricharanreddycheruku/ml-failure-lab)**
-  — small runnable ML failures with corrections. First contribution: CSV error
-  line numbers after quoted multiline fields; the reproducer was posted on the
-  issue before code ([#39](https://github.com/sricharanreddycheruku/ml-failure-lab/issues/39)),
-  then two failing tests and a one-line fix
-  ([#41](https://github.com/sricharanreddycheruku/ml-failure-lab/pull/41)).
+  — small runnable ML failures with corrections. I posted a reproducer for CSV
+  error line numbers after quoted multiline fields
+  ([#39](https://github.com/sricharanreddycheruku/ml-failure-lab/issues/39)),
+  but the maintainer was already reviewing a competing fix
+  ([#40](https://github.com/sricharanreddycheruku/ml-failure-lab/pull/40)), so I
+  closed mine and picked another issue: a regression test for UTF-8 BOM plus
+  CRLF CSV files, with the fixture agreed on the issue first
+  ([#37](https://github.com/sricharanreddycheruku/ml-failure-lab/issues/37),
+  [#42](https://github.com/sricharanreddycheruku/ml-failure-lab/pull/42)).
 - **[Omarchy](https://github.com/omacom/omarchy)** — the distribution this host
   runs. Added `--yes` to `omarchy-sudo-passwordless` so an agent or script that
   already asked can take a timed grant without a TTY, with three new shell
