@@ -73,6 +73,10 @@ contributor, reviewed and merged with credit
 structured degraded-evidence fix was reviewed, rebased and merged with credit
 ([#73](https://github.com/volt69506-eng/volt-watch/pull/73)); an overlapping
 listener PR was closed with a new issue carved out for its one unique idea.
+Current invitations: an SSH `authorized_keys` permissions check
+([#95](https://github.com/volt69506-eng/volt-watch/issues/95)) and a
+`--list-checks` discovery command
+([#96](https://github.com/volt69506-eng/volt-watch/issues/96)).
 
 ## How I work
 
