@@ -33,7 +33,7 @@ $ echo $?
 It reads systemd, the Tailscale mesh, the host firewall, sshd's own
 authentication settings, the account database and the volatile power-restore
 register, then reports findings with a remedy for each. It never changes system
-state. Written test-first; the test suite is the specification, and CI runs on Python 3.10–3.14 — **349 tests** as of this update.
+state. Written test-first; the test suite is the specification, and CI runs on Python 3.10–3.14 — **357 tests** as of this update.
 
 Findings cover the firewall default policy and SSH exposure, sshd
 authentication, local accounts, Tailscale publishing and backend state, the
@@ -60,11 +60,12 @@ drift, a missing mkinitcpio preset, off-tailnet listeners, and two CLI bugs.
 
 Open work invites outside contributors: a `/proc` fallback was implemented from
 an idea in a contributor PR ([#84](https://github.com/volt69506-eng/volt-watch/issues/84)).
-Both the duplicate-UID-0, `--fail-on` and cloud-credential issues were
-implemented test-first and merged
+Both the duplicate-UID-0, `--fail-on`, cloud-credential and boot-preset issues
+were implemented test-first and merged
 ([#91](https://github.com/volt69506-eng/volt-watch/pull/91),
 [#90](https://github.com/volt69506-eng/volt-watch/pull/90),
-[#92](https://github.com/volt69506-eng/volt-watch/pull/92)). The
+[#92](https://github.com/volt69506-eng/volt-watch/pull/92),
+[#93](https://github.com/volt69506-eng/volt-watch/pull/93)). The
 world-readable-SSH-key issue was solved by an outside
 contributor, reviewed and merged with credit
 ([#89](https://github.com/volt69506-eng/volt-watch/pull/89)). A contributor's
