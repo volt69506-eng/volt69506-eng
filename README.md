@@ -33,7 +33,7 @@ $ echo $?
 It reads systemd, the Tailscale mesh, the host firewall, sshd's own
 authentication settings, the account database and the volatile power-restore
 register, then reports findings with a remedy for each. It never changes system
-state. Written test-first; the test suite is the specification, and CI runs on Python 3.10–3.14 — **369 tests** as of this update.
+state. Written test-first; the test suite is the specification, and CI runs on Python 3.10–3.14 — **390 tests** as of this update.
 
 Findings cover the firewall default policy and SSH exposure, sshd
 authentication, local accounts, Tailscale publishing and backend state, the
@@ -71,16 +71,21 @@ then narrowed the UID 0 allowlist for system placeholder accounts
 ([#97](https://github.com/volt69506-eng/volt-watch/pull/97)); a second evidence
 review widened Limine detection and corrected the boot check's privileges note
 ([#101](https://github.com/volt69506-eng/volt-watch/pull/101)). The
-world-readable-SSH-key issue was solved by an outside
-contributor, reviewed and merged with credit
-([#89](https://github.com/volt69506-eng/volt-watch/pull/89)). A contributor's
-structured degraded-evidence fix was reviewed, rebased and merged with credit
-([#73](https://github.com/volt69506-eng/volt-watch/pull/73)); an overlapping
-listener PR was closed with a new issue carved out for its one unique idea.
-Current invitations: an SSH `authorized_keys` permissions check
-([#95](https://github.com/volt69506-eng/volt-watch/issues/95)) and a
-`--list-checks` discovery command
-([#96](https://github.com/volt69506-eng/volt-watch/issues/96)).
+world-readable-SSH-key, `authorized_keys` and `--list-checks` issues were
+solved by outside contributors and merged with credit
+([#89](https://github.com/volt69506-eng/volt-watch/pull/89),
+[#98](https://github.com/volt69506-eng/volt-watch/pull/98),
+[#99](https://github.com/volt69506-eng/volt-watch/pull/99)), as was a broad-firewall-allow
+exposure fix ([#100](https://github.com/volt69506-eng/volt-watch/pull/100)).
+A contributor's structured degraded-evidence fix was reviewed, rebased and
+merged with credit ([#73](https://github.com/volt69506-eng/volt-watch/pull/73));
+an overlapping listener PR was closed with a new issue carved out for its one
+unique idea. Multiple `--check` prefixes landed next
+([#105](https://github.com/volt69506-eng/volt-watch/pull/105)). Current
+invitations: weak SSH host key algorithms
+([#103](https://github.com/volt69506-eng/volt-watch/issues/103)) and sudoers
+file permissions
+([#104](https://github.com/volt69506-eng/volt-watch/issues/104)).
 
 ## How I work
 
@@ -145,7 +150,16 @@ attached over commentary.
   CRLF CSV files, with the fixture agreed on the issue first
   ([#37](https://github.com/sricharanreddycheruku/ml-failure-lab/issues/37),
   [#42](https://github.com/sricharanreddycheruku/ml-failure-lab/pull/42),
-  merged).
+  merged), then a two-column feature-row test with the proposed rows posted on
+  the issue first
+  ([#36](https://github.com/sricharanreddycheruku/ml-failure-lab/issues/36),
+  [#43](https://github.com/sricharanreddycheruku/ml-failure-lab/pull/43)).
+- **[relaysms-mail-pnba-adapter](https://github.com/smswithoutborders/relaysms-mail-pnba-adapter)**
+  — first contribution to this project. A recipient SimpleLogin rejects was
+  reported as an upstream outage because the HTTP 400 status was discarded;
+  the fix carries the status and maps it to `InvalidParamsError`, with three
+  TDD cases ([#7](https://github.com/smswithoutborders/relaysms-mail-pnba-adapter/issues/7),
+  [#8](https://github.com/smswithoutborders/relaysms-mail-pnba-adapter/pull/8)).
 - **[Omarchy](https://github.com/omacom/omarchy)** — the distribution this host
   runs. Added `--yes` to `omarchy-sudo-passwordless` so an agent or script that
   already asked can take a timed grant without a TTY, with three new shell
