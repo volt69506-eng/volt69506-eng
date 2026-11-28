@@ -68,7 +68,9 @@ machine-readable-output issues were implemented test-first and merged
 [#93](https://github.com/volt69506-eng/volt-watch/pull/93),
 [#94](https://github.com/volt69506-eng/volt-watch/pull/94)); a self-review
 then narrowed the UID 0 allowlist for system placeholder accounts
-([#97](https://github.com/volt69506-eng/volt-watch/pull/97)). The
+([#97](https://github.com/volt69506-eng/volt-watch/pull/97)); a second evidence
+review widened Limine detection and corrected the boot check's privileges note
+([#101](https://github.com/volt69506-eng/volt-watch/pull/101)). The
 world-readable-SSH-key issue was solved by an outside
 contributor, reviewed and merged with credit
 ([#89](https://github.com/volt69506-eng/volt-watch/pull/89)). A contributor's
